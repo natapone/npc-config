@@ -1,0 +1,4 @@
+npc-config
+==========
+
+Shared configuration
