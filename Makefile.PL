@@ -1,12 +1,17 @@
-use 5.014002;
-use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
-WriteMakefile(
-    NAME              => 'npc::config',
-    VERSION_FROM      => 'lib/npc/config.pm', # finds $VERSION
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM  => 'lib/npc/config.pm', # retrieve abstract from module
-       AUTHOR         => 'Dong <dong@>') : ()),
-);
+use inc::Module::Install;
+
+name 'npc-config';
+all_from 'lib/npc/config.pm';
+
+requires 'Config::JFDI';
+requires 'Cwd';
+requires 'ExtUtils::MakeMaker';
+requires 'Moose';
+requires 'Data::Dumper';
+requires 'Exporter';
+requires 'YAML::XS';
+
+install_script glob('bin/*');
+auto_install;
+
+WriteAll;

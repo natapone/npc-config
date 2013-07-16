@@ -1,84 +1,45 @@
 package npc::config;
 
-use 5.014002;
 use strict;
 use warnings;
-
-require Exporter;
-
-our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use npc::config ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
+use Config::JFDI;
+use Cwd;
+use Moose;
 
 our $VERSION = '0.01';
 
-
-# Preloaded methods go here.
-
-1;
-__END__
-# Below is stub documentation for your module. You'd better edit it!
-
 =head1 NAME
-
-npc::config - Perl extension for blah blah blah
-
-=head1 SYNOPSIS
-
-  use npc::config;
-  blah blah blah
+npc::config
 
 =head1 DESCRIPTION
+shared configuration point for related projects
 
-Stub documentation for npc::config, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+=cut
 
-Blah blah blah.
+sub get_config {
+    my ($self, $config_name) = @_;
+    
+    $config_name = 'test' if (!defined($config_name));
+    my $dir = getcwd;
+    
+    # called from external by 'use'
+##    if ($dir !~ /npc-config$/) {
+##        $dir .= "/../npc-config";
+##    } 
+    
+    
+    print "Get config '$config_name' @ $dir \n";
+    
+    my $config = Config::JFDI->new(name => $config_name, path => "$dir/etc");
+    my $config_hash = $config->get;
+    
+    return $config_hash;
+}
 
-=head2 EXPORT
+1;
 
-None by default.
-
-
-
-=head1 SEE ALSO
-
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+__END__
 
 =head1 AUTHOR
 
-Dong, E<lt>dong@E<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2013 by Dong
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.2 or,
-at your option, any later version of Perl 5 you may have available.
-
-
-=cut
+Natapone Charsombut <<natapone@gmail.com>>
