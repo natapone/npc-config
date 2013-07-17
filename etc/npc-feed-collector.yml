@@ -1,3 +1,4 @@
+feed_root: __PATH__
 schema_class: npc::feed::schema
 connect_info:
     - dbi:Pg:dbname=__DBNAME__;host=__HOSTNAME__
