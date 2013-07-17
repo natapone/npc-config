@@ -23,12 +23,11 @@ sub get_config {
     my $dir = getcwd;
     
     # called from external by 'use'
-##    if ($dir !~ /npc-config$/) {
-##        $dir .= "/../npc-config";
-##    } 
+    if ($dir !~ /npc-config$/) {
+        $dir .= "/../npc-config";
+    } 
     
-    
-    print "Get config '$config_name' @ $dir \n";
+#    print "Get config '$config_name' @ $dir \n";
     
     my $config = Config::JFDI->new(name => $config_name, path => "$dir/etc");
     my $config_hash = $config->get;
